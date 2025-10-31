@@ -1,13 +1,16 @@
 TAG := v6.17
 TARBALL := $(TAG).tar.gz
 
+.PHONY: build
+
 ALL: build
 
 $(TARBALL):
-	@echo "downloading $(tarball)..."
-	wget https://github.com/torvalds/linux/archive/refs/tags/$(tarball)
-	@if [ "$(cat $(tarball).md5)" != "$(md5sum $(tarball))" ]; then \
-		echo "checksum of $(tarball) is invalid."; \
+	@echo "downloading $(TARBALL)..."
+	wget https://github.com/torvalds/linux/archive/refs/tags/$(TARBALL)
+	@if [ "$(shell cat $(TARBALL).md5)" != "$$(md5sum $(TARBALL))" ]; then \
+		echo "checksum of $(TARBALL) is invalid."; \
+		rm -f $(TARBALL); \
 		exit 1; \
 	fi
 
@@ -20,9 +23,7 @@ src/.config: src
 
 build: src src/.config
 	$(MAKE) -C src
-
-install: build
-	$(MAKE) -C src headers_install INSTALL_HDR_PATH=$(DEPLOY)
+	$(MAKE) -C src headers_install INSTALL_HDR_PATH=$(BUILD)
 
 clean:
 	rm -rf src $(TARBALL)

@@ -1,12 +1,11 @@
-.PHONY: build install clean
+.PHONY: build mlibc clean
 
-ALL: build install
+ALL: build
 
-build:
-	$(MAKE) -C glibc build
+mlibc:
+	$(MAKE) -C mlibc
 
-install: build
-	$(MAKE) -C glibc install
+build: mlibc
 
 clean:
 	$(MAKE) -C glibc clean

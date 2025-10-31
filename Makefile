@@ -2,17 +2,13 @@ export ROOT ?= $(shell pwd)
 export DEPLOY ?= $(ROOT)/deploy
 export BUILD ?= $(ROOT)/build
 
-.PHONY: build install clean
+.PHONY: build clean
 
-ALL: build install
+ALL: build
 
 build:
-	$(MAKE) -C linux build
-	$(MAKE) -C lib build
-
-install: build
-	$(MAKE) -C linux install
-	$(MAKE) -C lib install
+	$(MAKE) -C linux
+	$(MAKE) -C lib
 
 clean:
 	$(MAKE) -C linux clean
