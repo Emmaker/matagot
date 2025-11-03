@@ -1,7 +1,7 @@
 TAG := v6.17
 TARBALL := $(TAG).tar.gz
 
-.PHONY: build
+.PHONY: build clean
 
 ALL: build
 
