@@ -1,9 +1,9 @@
 TAG := v6.17
 TARBALL := $(TAG).tar.gz
 
-.PHONY: build clean
+.PHONY: build install clean
 
-ALL: build
+ALL: build install
 
 $(TARBALL):
 	@echo "downloading $(TARBALL)..."
@@ -15,6 +15,7 @@ $(TARBALL):
 	fi
 
 src: $(TARBALL)
+	@if [ -d src ]; then rm -rf src; fi
 	mkdir src
 	tar xf $(TARBALL) -C src --strip-components=1
 
@@ -23,7 +24,10 @@ src/.config: src
 
 build: src src/.config
 	$(MAKE) -C src
+
+install: build
 	$(MAKE) -C src headers_install INSTALL_HDR_PATH=$(BUILD)
+	cp -u src/vmlinux $(DEPLOY)/vmlinux
 
 clean:
 	rm -rf src $(TARBALL)

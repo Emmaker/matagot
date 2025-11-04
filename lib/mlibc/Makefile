@@ -1,4 +1,4 @@
-.PHONY: build install
+.PHONY: build install clean
 
 ALL: build install
 
@@ -8,3 +8,6 @@ build:
 
 install:
 	@. ./install.sh	
+
+clean:
+	rm -rf builddir
