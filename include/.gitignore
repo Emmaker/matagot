@@ -1,0 +1,14 @@
+asm/
+asm-generic/
+cxl/
+drm/
+fwctl/
+linux/
+misc/
+mtd/
+rdma/
+regulator/
+scsi/
+sound/
+video/
+xen/
