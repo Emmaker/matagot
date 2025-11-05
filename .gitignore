@@ -1,3 +1,7 @@
-# Files generated during Linux kernel build
+# Files generated during linuxbuild
 *.tar.gz
 linux/
+
+# Generic build fragments
+**/*.o
+**/*.d
