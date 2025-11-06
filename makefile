@@ -12,6 +12,9 @@ TARGET_ARCH?= ${MACHINE_ARCH}
 .export TARGET
 .export TARGET_ARCH
 
+_SYSROOT:= ${TOPDIR}
+.export _SYSROOT
+
 # Add arg to override the system makefile directory
 MAKE+= -m${TOPDIR}/share/mk
 

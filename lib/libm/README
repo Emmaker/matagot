@@ -1,0 +1,56 @@
+README FOR PUBLIC DOMAIN LIBM MATH LIBRARY
+
+This public domain math library is my attempt at providing a better public
+domain math library than other public domain math libraries out there.  I
+realize that parts of it may suck, but if you think you can do better, do
+not hesitate to write me an e-mail.  I also realize that some functions may
+be missing, but that is because when I wrote this, my brain suddenly stopped,
+and I had to carry on feebly for a while, wondering what to do.  If you have
+an idea, do not hesitate to write me an e-mail!
+
+Anyway, this was an attempt to write a C99-compliant POSIX-compliant with-all-
+the-bells-and-whistles math library.  I originally wrote it to work with the
+four basic floating-point types in four basic byte orderings, but that could
+be altered if genfloat is altered.  Characteristics of the floating-point
+types are collected in a _FP_METRIC_T type, found in <float.h>.  My original
+thought was that the _FP_METRIC_T type would tell the functions how many
+iterations are needed, especially with functions that are represented with an
+infinite series.
+
+The ground rules:
+
+-       Sometimes, +0.0 is different from -0.0. Yes, I know I shouldn't fret
+        about the sign of nothing, but sometimes it is significant according
+        to POSIX.
+-       If a function's parameter is a NaN, and the function returns a NaN,
+        that function returns the NaN that was passed in.
+-       The functions should work no matter what the size of the parameter is.
+        Some libraries assume that a float is the 4-byte floating-point type
+        and a double is the 8-byte floating-point type.  While this is the
+        case for most computers in the last half-century or so, it should not
+        ALWAYS be the case.  Heck, FreeDOS has to work on every machine that
+        MS-DOS worked on going back to the i86 with 2-byte ints.
+-       All functions for <complex.h>, <fenv.h>, <float.h>, <math.h>, and
+        <tgmath.h> should be there, eventually. Help me out here ...
+-       The reason <float.h> is in here is because it should be, and other
+        functions in the library rely on <float.h>.
+-       I didn't know what to do with NaNs if they are the parts of complex
+        numbers, or infinities for that matter.  The functions in <complex.h>
+        need to be improved to account for this.
+
+What needs to be done with this:
+
+-       The missing functions have to be added.
+-       Testing, testing, more testing, and debugging of the functions that 
+        are already written.
+-       I tried to get it working under gcc; more compilers need to be tested.
+
+If the community helps me out here, not only would we get a fully-working
+math library for FreeDOS (and any other operating system that needs one; I'm
+trying to be portable and future-proof here!), but I would be very grateful.
+
+This has to be public domain as it is a basic library that can be compiled
+with anything, and I didn't want copyright of the library to interfere with
+distribution of same library or its parts in other people's code.
+
+Gregory Pietsch, <gpietsch@comcast.net>, 2020-09-27

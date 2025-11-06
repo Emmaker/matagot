@@ -1,5 +1,7 @@
-crt/crt1.o: crt/crt1.c
-	cc -c ${.IMPSRC} -o ${.TARGET}
+all: crt libm .PHONY
 
-clean: .PHONY
-	rm -rf crt/crt1.o
+crt: .PHONY
+	${MAKE} -C crt
+
+libm: .PHONY
+	${MAKE} -C libm
