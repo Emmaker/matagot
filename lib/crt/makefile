@@ -11,3 +11,6 @@ ${MACHINE}/crti.o: ${MACHINE}/crti.S
 
 ${MACHINE}/crtn.o: ${MACHINE}/crtn.S
 	cc -c ${MACHINE}/crtn.S -o ${.TARGET}
+
+clean: .PHONY
+	rm -rf crt1.o Scrt1.o ${MACHINE}/crti.o ${MACHINE}/crtn.o

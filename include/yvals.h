@@ -11,8 +11,8 @@
 
 /* yvals.h - user-defined values */
 
-#ifndef __YVALS_H__
-#define __YVALS_H__
+#ifndef _YVALS_H
+#define _YVALS_H
 
 #ifndef __BYTE_ORDER
 #define __LITTLE_ENDIAN 	(0)	/* XINU - IBM PCs */
@@ -66,4 +66,4 @@
 #define _FLTROUNDS	1
 #define _FLTEVALMETHOD	0
 
-#endif	/* __YVALS_H__ */
+#endif	/* _YVALS_H */

@@ -56,8 +56,8 @@
    corresponding type-generic macro has the same name as the function.
 */
 
-#ifndef __TGMATH_H__
-#define __TGMATH_H__
+#ifndef _TGMATH_H
+#define _TGMATH_H
 
 #include <complex.h>
 #include <math.h>
@@ -259,4 +259,4 @@
 (_Generic (_X, long double: truncl, double: trunc, float: truncf, \
            default: trunc))(_X)
 
-#endif /* __TGMATH_H__ */
+#endif /* _TGMATH_H */

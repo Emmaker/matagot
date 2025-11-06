@@ -14,8 +14,8 @@
    AUTHOR: Gregory Pietsch
 */
 
-#ifndef __FENV_H__
-#define __FENV_H__
+#ifndef _FENV_H
+#define _FENV_H
 
 #include <sys/cdefs.h>
 
@@ -147,4 +147,4 @@ __END_DECLS
    control modes have their default settings.)
 */
 
-#endif /* __FENV_H__ */
+#endif /* _FENV_H */

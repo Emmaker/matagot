@@ -5,3 +5,5 @@ linux/
 # Generic build fragments
 **/*.o
 **/*.d
+**/*.so
+**/*.a

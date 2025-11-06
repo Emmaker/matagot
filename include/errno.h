@@ -1,8 +1,8 @@
-#ifndef _ERRNO_H_
-#define _ERRNO_H_
+#ifndef _ERRNO_H
+#define _ERRNO_H
 
 #include <sys/cdefs.h>
-#include <linux/errno.h>
+#include <asm-generic/errno.h>
 
 extern
 #ifdef __cplusplus
@@ -13,4 +13,4 @@ extern
 
 #define errno (*__errno_location())
 
-#endif /* _ERRNO_H_ */
+#endif /* _ERRNO_H */

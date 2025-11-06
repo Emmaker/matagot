@@ -21,8 +21,8 @@
    these symbols in this header.
 */
 
-#ifndef __MATH_H__
-#define __MATH_H__
+#ifndef _MATH_H
+#define _MATH_H
 
 #include <sys/cdefs.h>
 
@@ -444,6 +444,6 @@ __END_DECLS
    visible exceptional conditions.
 */
 
-#endif /* __MATH_H__ */
+#endif /* _MATH_H */
 
 /* END OF FILE */

@@ -15,8 +15,8 @@
 
 */
 
-#ifndef __FLOAT_H__
-#define __FLOAT_H__
+#ifndef _FLOAT_H
+#define _FLOAT_H
 
 #include <yvals.h>
 
@@ -72,4 +72,4 @@ extern const _FP_METRIC_T * const _Flt, * const _Dbl, * const _Ldbl;
 #define LDBL_EPSILON	(_Ldbl->_Epsilon._L)
 #define LDBL_MIN	(_Ldbl->_Min._L)
 
-#endif /* __FLOAT_H__ */
+#endif /* _FLOAT_H */

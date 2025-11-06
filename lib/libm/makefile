@@ -1,4 +1,4 @@
-LIBNAME= libm.so
+LIBNAME= libm
 SRCS= acos.c   bessel.c  catan.c   cimag.c     creal.c     erf.c            feconsts.c         fesetexceptflag.c  fmax.c        getsign.c  log1p.c   matherr.c    remainder.c  sincos.c \
 acosh.c  cabs.c    catanh.c  clog.c      csin.c      exp2.c           fegetenv.c         fesetround.c       fmin.c        hypot.c    log2.c    modf.c       remquo.c     sinh.c \
 asin.c   cacos.c   cbrt.c csinh.c     exp.c            fegetexceptflag.c  fetestexcept.c     fmod.c        ilogb.c    logb.c    nan.c        rint.c       sqrt.c \

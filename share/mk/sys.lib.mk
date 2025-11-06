@@ -5,12 +5,14 @@
 .error "SRCS must be defined"
 .endif
 
+LIBSUFFIX?= .so
+
 # TODO: modularize as needed
 CC!= which cc
 LD!= which ld
 
 CFLAGS= -nostdlib
-CFLAGS+= -MD
+CFLAGS+= -MD -fPIC
 CFLAGS+= -I.
 CFLAGS+= -std=gnu23
 .ifdef _SYSROOT
@@ -37,6 +39,12 @@ CPPFLAGS+= -std=gnu++98
 .cc.o:
 	${CC} ${CPPFLAGS} ${CPPFLAGS.${.IMPSRC}} -c ${.IMPSRC} -o ${.TARGET}
 
-OBJS= $(SRCS:S/.cc/.o/:S/.c/.o/:S/.S/.o/)
-${LIBNAME}: ${OBJS}
-	${LD} -o ${.TARGET} ${OBJS}
+OBJS= ${SRCS:S/.cc/.o/:S/.c/.o/:S/.S/.o/}
+_OUT= ${LIBNAME}${LIBSUFFIX}
+
+${_OUT}: ${OBJS}
+	${LD} -shared -fPIC -o ${.TARGET} ${OBJS}
+
+_ALL= ${OBJS} ${OBJS:S/.o/.d/} ${_OUT}
+clean:
+	rm -rf ${_ALL}
