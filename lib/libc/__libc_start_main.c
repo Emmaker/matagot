@@ -3,9 +3,9 @@
 #include <sys/auxv.h>
 #include <sys/cdefs.h>
 
-char **environ;
 const char *__progname;
 
+extern char **environ;
 extern const Elf64_auxv_t *_auxv;
 
 void handle_argv(int argc, char **argv) {

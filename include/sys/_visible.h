@@ -32,8 +32,8 @@
  * SUCH DAMAGE.
  */
 
-#ifndef	_SYS__VISIBLE_H_
-#define	_SYS__VISIBLE_H_
+#ifndef	_SYS__VISIBLE_H
+#define	_SYS__VISIBLE_H
 
 /*-
  * The following definitions are an extension of the behavior originally
@@ -220,4 +220,4 @@
 #endif
 #endif /* __STDC_WANT_LIB_EXT1__ */
 
-#endif /* !_SYS__VISIBLE_H_ */
+#endif /* !_SYS__VISIBLE_H */

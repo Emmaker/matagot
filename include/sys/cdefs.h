@@ -32,8 +32,8 @@
  * SUCH DAMAGE.
  */
 
-#ifndef	_SYS_CDEFS_H_
-#define	_SYS_CDEFS_H_
+#ifndef	_SYS_CDEFS_H
+#define	_SYS_CDEFS_H
 
 /*
  * Provide clang-compatible testing macros. All supported versions of gcc (10+)
@@ -635,4 +635,4 @@
 #define __align_down(x, y) __builtin_align_down(x, y)
 #define __is_aligned(x, y) __builtin_is_aligned(x, y)
 
-#endif /* !_SYS_CDEFS_H_ */
+#endif /* !_SYS_CDEFS_H */
