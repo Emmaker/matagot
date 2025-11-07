@@ -2,11 +2,17 @@
 #define _SYS_TYPES_H
 
 // __kernel_* types are defined here
+#include <stdint.h>
 #include <linux/types.h>
 
 #ifndef _MODE_T_DECLARED
 typedef __kernel_mode_t mode_t;
 #define _MODE_T_DECLARED
+#endif
+
+#ifndef _SIZE_T_DECLARED
+typedef __SIZE_TYPE__ size_t;
+#define _SIZE_T_DECLARED
 #endif
 
 #ifndef _SSIZE_T_DECLARED
@@ -17,6 +23,43 @@ typedef __kernel_ssize_t ssize_t;
 #ifndef _DEV_T_DECLARED
 typedef __kernel_old_dev_t dev_t;
 #define _DEV_T_DECLARED
+#endif
+
+#ifndef _GID_T_DECLARED
+typedef	__kernel_gid_t gid_t;
+#define	_GID_T_DECLARED
+#endif
+
+#ifndef _UID_T_DECLARED
+typedef	__kernel_uid_t uid_t;
+#define	_UID_T_DECLARED
+#endif
+
+#ifndef _PID_T_DECLARED
+typedef __kernel_pid_t pid_t;
+#define _PID_T_DECLARED
+#endif
+
+#ifndef _OFF_T_DECLARED
+typedef __kernel_off_t off_t;
+#define _OFF_T_DECLARED
+#endif
+
+#ifndef _USECONDS_T_DECLARED
+typedef __kernel_suseconds_t useconds_t;
+#define _USECONDS_T_DECLARED
+#endif
+
+#ifndef _VM_OFFSET_T_DECLARED
+typedef uintptr_t vm_offset_t;
+#define _VM_OFFSET_T_DECLARED
+#endif
+
+#if __BSD_VISIBLE
+typedef unsigned char u_char;
+typedef unsigned short u_short;
+typedef unsigned int u_int;
+typedef unsigned long u_long;
 #endif
 
 #endif /* _SYS_TYPES_H */

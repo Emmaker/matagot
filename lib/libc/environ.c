@@ -63,7 +63,7 @@ char *secure_getenv(const char *name) {
   return getenv(name);
 }
 
-char *unsetenv(const char *name) {
+int unsetenv(const char *name) {
   for (size_t i = 0; environ[i]; i++) {
     char *e = environ[i];
     for (size_t c = 0;; c++) {
