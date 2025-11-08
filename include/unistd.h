@@ -36,6 +36,11 @@
 #include <sys/_null.h>
 #include <sys/select.h>		/* for fd_set */
 
+
+#if defined(_FORTIFY_SOURCE) && _FORTIFY_SOURCE > 0
+#include <ssp/unistd.h>
+#endif
+
 #define	STDIN_FILENO	0	/* standard input file descriptor */
 #define	STDOUT_FILENO	1	/* standard output file descriptor */
 #define	STDERR_FILENO	2	/* standard error file descriptor */

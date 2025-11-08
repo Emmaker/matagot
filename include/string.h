@@ -49,6 +49,10 @@ typedef	__SIZE_TYPE__	size_t;
 #define	_SIZE_T_DECLARED
 #endif
 
+#if defined(_FORTIFY_SOURCE) && _FORTIFY_SOURCE > 0
+#include <ssp/string.h>
+#endif
+
 __BEGIN_DECLS
 #if __XSI_VISIBLE >= 600 || __ISO_C_VISIBLE >= 2023
 void	*memccpy(void * __restrict, const void * __restrict, int, size_t);
