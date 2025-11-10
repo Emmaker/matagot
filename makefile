@@ -12,8 +12,8 @@ TARGET_ARCH?= ${MACHINE_ARCH}
 .export TARGET
 .export TARGET_ARCH
 
-_SYSROOT:= ${TOPDIR}
-.export _SYSROOT
+SYSROOT:= ${TOPDIR}
+.export SYSROOT
 
 # Add arg to override the system makefile directory
 MAKE+= -m${TOPDIR}/share/mk
@@ -59,7 +59,7 @@ linuxbuild: linux linux/.config .PHONY
 	gmake -C linux \
 		ARCH=${TARGET}
 # Will install headers in ${TOPDIR}/include
-	gmake -C linux headers_install INSTALL_HDR_PATH=${TOPDIR}	
+	gmake -C linux headers_install INSTALL_HDR_PATH=${TOPDIR}
 
 ##############
 #  libbuild  #

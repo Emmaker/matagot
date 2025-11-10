@@ -4,9 +4,9 @@
 #include <sys/cdefs.h>
 // #include <time.h>
 
-typedef struct _thrd *thrd_t;
-typedef struct _mtx mtx_t;
-typedef struct _cnd cnd_t;
+typedef struct _thread *thrd_t;
+typedef struct _mutex mtx_t;
+typedef struct _thread_condition cnd_t;
 typedef struct _tss *tss_t;
 typedef void (*tss_dtor_t)(void *);
 typedef int (*thrd_start_t)(void *);

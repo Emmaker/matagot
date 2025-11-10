@@ -37,13 +37,12 @@ extern int sched_setaffinity(pid_t, size_t, const cpu_set_t *) __noexcept;
 extern int sched_getcpu(void) __noexcept;
 #endif
 #ifdef __GNU_VISIBLE
-extern int clone(
-    int (*fn)(void *), void *stack, int flags, void *arg,
-    ... /* pid_t *parent, void *tls, pid_t *child */) __noexcept;
+/* TODO: GNU compatible clone() */
 extern int unshare(unsigned long) __noexcept;
 extern int getcpu(unsigned int *, unsigned int *) __noexcept;
 extern int setns(int, int) __noexcept;
 #endif
+extern int clone3(struct clone_args *, size_t) __noexcept;
 __END_DECLS
 
 #endif /* _SCHED_H */

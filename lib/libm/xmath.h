@@ -12,7 +12,7 @@
 /* xmath.h - local #include file
 
    AUTHOR: Gregory Pietsch
-   
+
 */
 
 #ifndef _XMATH
@@ -23,9 +23,7 @@
 #include <float.h>
 #include <limits.h>
 #include <math.h>
-#ifndef _YVALS
 #include <yvals.h>
-#endif
 
 #ifndef M_E
 #define M_E		\

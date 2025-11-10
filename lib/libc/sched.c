@@ -145,10 +145,9 @@ __exported int unshare(unsigned long flags) {
 #endif
 }
 
-__exported int
-clone(int (*fn)(void *), void *stack, int flags, void *arg, ...) {
+__exported int clone3(struct clone_args *args, size_t size) {
 #ifdef SYS_clone3
-  struct clone_args args = {0};
+  return scall(SYS_clone3, args, size);
 #else
   errno = ENOSYS;
   return -1;
