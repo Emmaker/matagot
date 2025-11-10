@@ -8,8 +8,9 @@
 LIBSUFFIX?= .so
 
 # TODO: modularize as needed
-CC!= which cc
-LD!= which ld
+# we explicitly use clang in this household
+CC!= which clang
+LD!= which ld.lld
 
 CFLAGS= -nostdlib
 CFLAGS+= -MD -fPIC
@@ -43,7 +44,7 @@ OBJS= ${SRCS:S/.cc/.o/:S/.c/.o/:S/.S/.o/}
 _OUT= ${LIBNAME}${LIBSUFFIX}
 
 ${_OUT}: ${OBJS}
-	${LD} -shared -fPIC -o ${.TARGET} ${OBJS}
+	${LD} -shared -o ${.TARGET} ${OBJS}
 
 _ALL= ${OBJS} ${OBJS:S/.o/.d/} ${_OUT}
 clean:

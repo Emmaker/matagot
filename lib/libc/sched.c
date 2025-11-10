@@ -1,4 +1,5 @@
 #include <errno.h>
+#include <linux/sched.h>
 #include <sys/syscall.h>
 #include <unistd.h>
 
@@ -90,9 +91,27 @@ sched_setaffinity(pid_t pid, size_t cpusetsize, const cpu_set_t *cpuset) {
 #endif
 }
 
+__exported int getcpu(unsigned *cpu, unsigned *node) {
+#ifdef SYS_getcpu
+  // getcpu_cache
+  static char cache[128 / sizeof(long)];
+  return scall(SYS_getcpu, cpu, node, &cache);
+#else
+  errno = ENOSYS;
+  return -1;
+#endif
+}
+
 __exported int sched_getcpu(void) {
 #ifdef SYS_getcpu
-  return scall(SYS_getcpu);
+  // lives on stack
+  struct {
+    unsigned cpu;
+    unsigned node;
+  } ret;
+  if (getcpu(&ret.cpu, &ret.node) == -1)
+    return -1;
+  return ret.cpu;
 #else
   errno = ENOSYS;
   return -1;
@@ -102,6 +121,34 @@ __exported int sched_getcpu(void) {
 __exported int sched_yield(void) {
 #ifdef SYS_sched_yield
   return scall(SYS_sched_yield);
+#else
+  errno = ENOSYS;
+  return -1;
+#endif
+}
+
+__exported int setns(int fd, int nstype) {
+#ifdef SYS_setns
+  return scall(SYS_setns, fd, nstype);
+#else
+  errno = ENOSYS;
+  return -1;
+#endif
+}
+
+__exported int unshare(unsigned long flags) {
+#ifdef SYS_unshare
+  return scall(SYS_setns, flags);
+#else
+  errno = ENOSYS;
+  return -1;
+#endif
+}
+
+__exported int
+clone(int (*fn)(void *), void *stack, int flags, void *arg, ...) {
+#ifdef SYS_clone3
+  struct clone_args args = {0};
 #else
   errno = ENOSYS;
   return -1;
