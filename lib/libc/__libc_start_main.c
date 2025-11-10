@@ -25,7 +25,7 @@ void handle_argv(int argc, char **argv) {
       __progname = s + 1;
 }
 
-__exported void noreturn __libc_start_main(int (*main)(int, char **, char **),
-                                           int argc, char **argv) {
+__exported noreturn void
+__libc_start_main(int (*main)(int, char **, char **), int argc, char **argv) {
   handle_argv(argc, argv);
 }

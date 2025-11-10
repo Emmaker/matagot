@@ -157,6 +157,9 @@ int	 timingsafe_memcmp(const void *, const void *, size_t);
 #define _RSIZE_T_DEFINED
 typedef size_t rsize_t;
 #endif
+#ifndef RSIZE_MAX
+#define RSIZE_MAX SIZE_MAX
+#endif
 
 #ifndef _ERRNO_T_DEFINED
 #define _ERRNO_T_DEFINED

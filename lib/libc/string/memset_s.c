@@ -27,7 +27,8 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>
-#include "libc_private.h"
+
+#include <private/safe.h>
 
 /* ISO/IEC 9899:2011 K.3.7.4.1 */
 errno_t

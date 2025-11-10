@@ -29,8 +29,8 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _UNISTD_H_
-#define	_UNISTD_H_
+#ifndef _UNISTD_H
+#define	_UNISTD_H
 
 #include <sys/types.h>			/* XXX adds too much pollution. */
 #include <sys/_null.h>
@@ -553,8 +553,9 @@ void	 setusershell(void);
 int	 strtofflags(char **, u_long *, u_long *);
 int	 swapon(const char *);
 int	 swapoff(const char *, u_int);
-int	 syscall(int, ...);
-off_t	 __syscall(long, ...);
+long	 syscall(long, ...);
+off_t	 __syscall(long, ...) __deprecated;
+long scall(long, ...); /* safe syscall wrapper that handles errno */
 int	 undelete(const char *);
 int	 unwhiteout(const char *);
 void	*valloc(size_t);			/* obsoleted by malloc() */
@@ -568,4 +569,4 @@ extern int optreset;			/* getopt(3) external variable */
 #endif /* __BSD_VISIBLE */
 __END_DECLS
 
-#endif /* !_UNISTD_H_ */
+#endif /* !_UNISTD_H */

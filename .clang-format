@@ -1,0 +1,13 @@
+BasedOnStyle: LLVM
+
+AlignAfterOpenBracket: AlwaysBreak
+AlignConsecutiveAssignments:
+    Enabled: false
+AlignConsecutiveDeclarations:
+    Enabled: false
+AlignConsecutiveMacros:
+    Enabled: false
+IndentWidth: 2
+IndentPPDirectives: BeforeHash
+LineEnding: LF
+UseTab: Never

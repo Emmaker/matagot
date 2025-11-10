@@ -29,8 +29,8 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _STDLIB_H_
-#define	_STDLIB_H_
+#ifndef _STDLIB_H
+#define	_STDLIB_H
 
 #include <sys/cdefs.h>
 #include <sys/_null.h>
@@ -75,9 +75,6 @@ typedef struct {
 #endif
 
 __BEGIN_DECLS
-#ifdef _XLOCALE_H_
-#include <xlocale/_stdlib.h>
-#endif
 extern int __mb_cur_max;
 extern int ___mb_cur_max(void);
 #define	MB_CUR_MAX	((size_t)___mb_cur_max())
@@ -403,4 +400,4 @@ errno_t	 qsort_s(void *, rsize_t, rsize_t,
 __END_DECLS
 __NULLABILITY_PRAGMA_POP
 
-#endif /* !_STDLIB_H_ */
+#endif /* !_STDLIB_H */

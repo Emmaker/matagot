@@ -37,7 +37,7 @@ typedef	__kernel_uid_t uid_t;
 
 #ifndef _PID_T_DECLARED
 typedef __kernel_pid_t pid_t;
-#define _PID_T_DECLARED
+#define _PIT_T_DECLARED
 #endif
 
 #ifndef _OFF_T_DECLARED
@@ -53,6 +53,26 @@ typedef __kernel_suseconds_t useconds_t;
 #ifndef _VM_OFFSET_T_DECLARED
 typedef uintptr_t vm_offset_t;
 #define _VM_OFFSET_T_DECLARED
+#endif
+
+#ifndef _TIME_T_DECLARED
+typedef __kernel_time_t time_t;
+#define _TIME_T_DECLARED
+#endif
+
+#ifndef _CLOCK_T_DEFINED
+typedef __kernel_clock_t clock_t;
+#define _CLOCK_T_DEFINED
+#endif
+
+#ifndef _CLOCKID_T_DECLARED
+typedef int clockid_t;
+#define _CLOCKID_T_DECLARED
+#endif
+
+#ifndef _TIMER_T_DECLARED
+typedef __kernel_timer_t timer_t;
+#define _TIMER_T_DECLARED
 #endif
 
 #if __BSD_VISIBLE

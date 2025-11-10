@@ -1,13 +1,8 @@
 /*-
  * SPDX-License-Identifier: BSD-3-Clause
  *
- * Copyright (c) 1987, 1993
+ * Copyright (c) 1982, 1986, 1993, 1994
  *	The Regents of the University of California.  All rights reserved.
- *
- * Copyright (c) 2011 The FreeBSD Foundation
- *
- * Portions of this software were developed by David Chisnall
- * under sponsorship from the FreeBSD Foundation.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -34,51 +29,14 @@
  * SUCH DAMAGE.
  */
 
-#include <strings.h>
-#include <ctype.h>
+#ifndef _SYS__IOVEC_H_
+#define	_SYS__IOVEC_H_
 
-#include <private/locale.h>
+#include <sys/types.h>
 
-int
-strcasecmp_l(const char *s1, const char *s2, locale_t locale)
-{
-	const u_char
-			*us1 = (const u_char *)s1,
-			*us2 = (const u_char *)s2;
-	FIX_LOCALE(locale);
+struct iovec {
+	void	*iov_base;	/* Base address. */
+	size_t	 iov_len;	/* Length. */
+};
 
-	while (tolower_l(*us1, locale) == tolower_l(*us2++, locale))
-		if (*us1++ == '\0')
-			return (0);
-	return (tolower_l(*us1, locale) - tolower_l(*--us2, locale));
-}
-int
-strcasecmp(const char *s1, const char *s2)
-{
-	return strcasecmp_l(s1, s2, __get_locale());
-}
-
-int
-strncasecmp_l(const char *s1, const char *s2, size_t n, locale_t locale)
-{
-	FIX_LOCALE(locale);
-	if (n != 0) {
-		const u_char
-				*us1 = (const u_char *)s1,
-				*us2 = (const u_char *)s2;
-
-		do {
-			if (tolower_l(*us1, locale) != tolower_l(*us2++, locale))
-				return (tolower_l(*us1, locale) - tolower_l(*--us2, locale));
-			if (*us1++ == '\0')
-				break;
-		} while (--n != 0);
-	}
-	return (0);
-}
-
-int
-strncasecmp(const char *s1, const char *s2, size_t n)
-{
-	return strncasecmp_l(s1, s2, n, __get_locale());
-}
+#endif /* !_SYS__IOVEC_H_ */

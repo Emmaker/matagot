@@ -32,8 +32,8 @@
  * SUCH DAMAGE.
  */
 
+#define __BSD_VISIBLE 1
 #include <sys/types.h>
-
 #include <limits.h>
 
 #define	wsize	sizeof(u_long)
