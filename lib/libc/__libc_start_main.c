@@ -2,6 +2,7 @@
 #include <stdnoreturn.h>
 #include <sys/auxv.h>
 #include <sys/cdefs.h>
+#include <stdlib.h>
 
 const char *__progname;
 
@@ -28,4 +29,5 @@ void handle_argv(int argc, char **argv) {
 __exported noreturn void
 __libc_start_main(int (*main)(int, char **, char **), int argc, char **argv) {
   handle_argv(argc, argv);
+  exit(main(argc, argv, environ));
 }

@@ -25,9 +25,10 @@
  * SUCH DAMAGE.
  */
 
-#include <sys/limits.h>
+#include <stdint.h>
 #include <sys/types.h>
 #include <string.h>
+#include <asm/bitsperlong.h>
 
 /*
  * Portable strlen() for 32-bit and 64-bit systems.
@@ -48,10 +49,10 @@
  */
 
 /* Magic numbers for the algorithm */
-#if LONG_BIT == 32
+#if __BITS_PER_LONG == 32
 static const unsigned long mask01 = 0x01010101;
 static const unsigned long mask80 = 0x80808080;
-#elif LONG_BIT == 64
+#elif __BITS_PER_LONG == 64
 static const unsigned long mask01 = 0x0101010101010101;
 static const unsigned long mask80 = 0x8080808080808080;
 #else
