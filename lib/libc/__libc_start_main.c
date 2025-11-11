@@ -17,7 +17,7 @@ void handle_argv(int argc, char **argv) {
   char **auxv = env;
   while (*++auxv != 0)
     ;
-  _auxv = (const Elf64_auxv_t *)auxv;
+  _auxv = (const Elf64_auxv_t *)++auxv;
 
   __progname =
       (argc > 0 && argv[0] != 0) ? argv[0] : (const char *)getauxval(AT_EXECFN);
