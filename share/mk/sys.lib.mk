@@ -19,7 +19,7 @@ LIBSUFFIX?= .so
 
 .SUFFIXES: .cc .o
 .cc.o:
-	${CC} ${CPPFLAGS} ${CPPFLAGS.${.IMPSRC}} -c ${.IMPSRC} -o ${.TARGET}
+	${CC} ${CCFLAGS} ${CCFLAGS.${.IMPSRC}} -c ${.IMPSRC} -o ${.TARGET}
 
 OBJS= ${SRCS:S/.cc/.o/:S/.c/.o/:S/.S/.o/}
 _OUT= ${LIBNAME}${LIBSUFFIX}

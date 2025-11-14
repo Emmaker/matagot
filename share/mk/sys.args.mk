@@ -19,4 +19,8 @@ CFLAGS+= --sysroot=${SYSROOT} -I${SYSROOT}/include
 CCFLAGS= ${CFLAGS} -std=gnu++98
 .endif ## CCFLAGS ##
 
+.ifndef ARFLAGS
+ARFLAGS= -fPIC -g
+.endif ## ARFLAGS ##
+
 .endif ## __<sys.args.mk>__ ##

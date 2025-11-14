@@ -1,6 +1,6 @@
 #include <elf.h>
 #include <link.h>
-#include <new>
+#include <stdint.h>
 #include <sys/cdefs.h>
 #include <sys/syscall.h>
 // for mmap flags
@@ -9,7 +9,7 @@
 __BEGIN_DECLS
 long _syscall(long, ...);
 #define exit(e) _syscall(SYS_exit, e)
-#define mmap(addr, len, prot, flags, fd, offset)                               \
+#define mmap(addr, len, prot, flags, fd, offset) \
   _syscall(SYS_mmap, addr, len, prot, flags, fd, offset)
 
 void _dlmain(Elf64_auxv_t *);
@@ -50,19 +50,19 @@ public:
         0);
     // indicative of an error
     if (region & -4095)
-      exit(region);
+      exit(-region);
 
-    struct pool_free_object head = (void *)region;
+    pool_free_object *head = (pool_free_object *)region;
     if (this->head == 0)
       this->head = head;
     else
       this->head->next = head;
-    head = &head + object_size;
+    head = (pool_free_object *)((uintptr_t)head + object_size);
 
     do {
-      head->next = &head + object_size;
-      head = &head + object_size;
-    } while (&head < (region + region_size));
+      head->next = (pool_free_object *)((uintptr_t)head + object_size);
+      head = (pool_free_object *)((uintptr_t)head + object_size);
+    } while ((uintptr_t)head < (region + region_size));
   #undef region_size
   }
 
@@ -81,7 +81,9 @@ private:
   pool_free_object *head;
 
   // objects must be large enough to store the linked list
-  _Static_assert(object_size >= sizeof(pool_free_object));
+  _Static_assert(
+      object_size >= sizeof(pool_free_object),
+      "Pooled object is larger than linked list");
 };
 #endif /* __cplusplus */
 
