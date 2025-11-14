@@ -22,6 +22,9 @@ int dlclose(void *);
 char *dlerror(void);
 void *dlopen(void);
 void *dlsym(void *__restrict, const char *__restrict);
+#if defined(__GNU_VISIBLE) || defined (__BSD_VISIBLE)
+int dlinfo(void *__restrict, int, void *__restrict);
+#endif
 __END_DECLS
 
 #endif

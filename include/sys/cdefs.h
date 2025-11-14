@@ -332,6 +332,7 @@
 #define	__null_sentinel	__attribute__((__sentinel__))
 #define	__exported	__attribute__((__visibility__("default")))
 #define	__hidden	__attribute__((__visibility__("hidden")))
+#define __protected __attribute__((__visibility__("protected")))
 
 /*
  * We define this here since <stddef.h>, <sys/queue.h>, and <sys/types.h>
@@ -501,7 +502,7 @@
  * Type Safety Checking
  *
  * Clang provides additional attributes to enable checking type safety
- * properties that cannot be enforced by the C type system. 
+ * properties that cannot be enforced by the C type system.
  */
 
 #if __has_attribute(__argument_with_type_tag__) && \

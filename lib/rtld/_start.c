@@ -42,20 +42,48 @@ __exported void _start() {
 
   // if there is no dynamic table, something is VERY wrong
   if (dynamic == 0)
-    exit(1);
+    exit(-1001);
 
-  Elf64_Rel *rels;   // relocation table
-  Elf64_Rela *relas; // relocation table with addends
-  // total size (sz) and individual entry size (ent) of rel and rela
-  long rel_sz, rel_ent, rela_sz, rela_ent;
   // the dynamic table itself
   Elf64_Dyn *dyn_table = (Elf64_Dyn *)((char *)ehdr + dynamic->p_offset);
 
-  // iterate through the dynamic table, and apply relocations
-  int dyn_num = dynamic->p_memsz / sizeof(Elf64_Dyn);
-  for (int i = 0; i < dyn_num; i++) {
-    Elf64_Dyn *dyn = &dyn_table[dyn_num];
+  // calculate the number of rel symbols from total size (sz) and entry size
+  int rel_num =
+      dyn_table[DT_RELSZ].d_un.d_val / dyn_table[DT_RELENT].d_un.d_val;
+  // calculate rel table address and perform relocations
+  Elf64_Rel *rel_table =
+      (Elf64_Rel *)((char *)ehdr + dyn_table[DT_REL].d_un.d_ptr);
+  for (int i = 0; i < rel_num; i++) {
+    switch (rel_table[i].r_info) {
+    case R_TARGET_RELATIVE:
+      rel_table[i].r_offset += (unsigned long)ehdr;
+      break;
+    default:
+      break;
+    }
   }
 
+  // dito but for rela (rel with addends)
+  int rela_num =
+      dyn_table[DT_RELASZ].d_un.d_val / dyn_table[DT_RELENT].d_un.d_val;
+  Elf64_Rela *rela_table =
+      (Elf64_Rela *)((char *)ehdr + dyn_table[DT_RELA].d_un.d_val);
+  for (int i = 0; i < rela_num; i++) {
+    switch (rela_table[i].r_info) {
+    case R_TARGET_RELATIVE:
+      rela_table[i].r_offset = (unsigned long)ehdr + rela_table[i].r_addend;
+      break;
+    default:
+      break;
+    }
+  }
+
+  // jump to main linker routine
+  _dlmain(auxv);
+
+  // retrieve the entry point, restore stack to original value, and call
+  volatile register void (*entry)() = (void *)auxv[AT_ENTRY].a_un.a_val;
   sp = store_sp;
+  entry();
+  __unreachable();
 }
