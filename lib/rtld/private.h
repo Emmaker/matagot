@@ -1,4 +1,6 @@
 #include <elf.h>
+#include <link.h>
+#include <new>
 #include <sys/cdefs.h>
 #include <sys/syscall.h>
 // for mmap flags
@@ -77,5 +79,32 @@ private:
     pool_free_object *next;
   };
   pool_free_object *head;
+
+  // objects must be large enough to store the linked list
+  _Static_assert(object_size >= sizeof(pool_free_object));
 };
 #endif /* __cplusplus */
+
+struct dl_object {
+  struct link_map map;
+  struct dl_object_dep *dep;
+
+#ifdef __cplusplus
+  dl_object() {}
+  // new operator does not support quantities greater than 1
+  void *operator new(unsigned long);
+
+  void add_dependency(dl_object *);
+#endif /* __cplusplus */
+};
+
+struct dl_object_dep {
+  struct dl_object_dep *next;
+  struct dl_object *obj;
+
+#ifdef __cplusplus
+  dl_object_dep(dl_object_dep *next, dl_object *obj) : next(next), obj(obj) {}
+  // new operator does not support quantities greater than 1
+  void *operator new(unsigned long);
+#endif /* __cplusplus */
+};

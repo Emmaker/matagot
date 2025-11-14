@@ -330,9 +330,14 @@
 #define	__predict_false(exp)    __builtin_expect((exp), 0)
 
 #define	__null_sentinel	__attribute__((__sentinel__))
+/* Symbol is fully exported to dynamic table */
 #define	__exported	__attribute__((__visibility__("default")))
+/* SYmbol is not exported, but may be passed via pointers */
 #define	__hidden	__attribute__((__visibility__("hidden")))
+/* Symbol is exported, but all internal references do not use table */
 #define __protected __attribute__((__visibility__("protected")))
+/* Symbol is not exported, and should never be accessible outside object */
+#define __internal __attribute__((__visibility__("internal")))
 
 /*
  * We define this here since <stddef.h>, <sys/queue.h>, and <sys/types.h>
