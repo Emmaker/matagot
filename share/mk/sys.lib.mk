@@ -15,7 +15,7 @@ LIBSUFFIX?= .so
 
 .SUFFIXES: .S .o
 .S.o:
-	${CC} ${ASFLAGS} ${ASFLAGS.${.IMPSRC}} -c ${.IMPSRC} -o ${.TARGET}
+	${CC} ${SFLAGS} ${SFLAGS.${.IMPSRC}} -c ${.IMPSRC} -o ${.TARGET}
 
 .SUFFIXES: .cc .o
 .cc.o:

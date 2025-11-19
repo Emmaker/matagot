@@ -85,8 +85,55 @@ private:
       object_size >= sizeof(pool_free_object),
       "Pooled object is larger than linked list");
 };
+
+/*
+ * Utility iterator class for iterating through ELF binary headers (Phdr, Shdr).
+ */
+template <typename T> class ElfHdrIterator {
+public:
+  // we have to use some *awkward* values so we don't have to include <iterator>
+  typedef struct forward_iterator_tag {
+  } iterator_category;
+  typedef T value_type;
+  typedef intptr_t difference_type;
+  typedef T *pointer;
+  typedef T &reference;
+
+  ElfHdrIterator(T *ptr, size_t size, size_t count, size_t current = 0)
+      : size(size), count(count) {
+    ptr = (T *)((uintptr_t)ptr + size * current);
+  }
+
+  reference operator*() const { return *ptr; }
+  pointer operator->() const { return ptr; }
+
+  ElfHdrIterator &operator++() {
+    ptr = (T *)((uintptr_t)ptr + size);
+    return *this;
+  }
+  ElfHdrIterator operator++(int) {
+    ElfHdrIterator tmp = *this;
+    this ++;
+    return tmp;
+  }
+
+  bool operator==(const ElfHdrIterator &other) const {
+    return ptr == other.ptr;
+  }
+  bool operator!=(const ElfHdrIterator &other) const { return !this == other; }
+
+private:
+  T *ptr;
+  size_t size;
+  size_t count;
+};
 #endif /* __cplusplus */
 
+/*
+ * Struct representing a dynamically loaded "object" (exe, .so). The structure
+ * of this is freely modifiable, as it should never be accessed outside the
+ * dynamic linker.
+ */
 struct dl_object {
   struct link_map map;
   struct dl_object_dep *dep;
@@ -100,6 +147,15 @@ struct dl_object {
 #endif /* __cplusplus */
 };
 
+/*
+ * To keep a consistent memory footprint, and preventing the need for resizeable
+ * arrays so we can use the dl_pool allocator for dl_objects, object
+ * dependencies (i.e. NEEDED objects in the dynamic table) will be tracked via
+ * linked list.
+ *
+ * This also permits reuse of dl_objects as dependencies, preventing duplication
+ * or weird logic to account for duplicates.
+ */
 struct dl_object_dep {
   struct dl_object_dep *next;
   struct dl_object *obj;
