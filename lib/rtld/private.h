@@ -11,9 +11,16 @@ long _syscall(long, ...);
 #define exit(e) _syscall(SYS_exit, e)
 #define mmap(addr, len, prot, flags, fd, offset) \
   _syscall(SYS_mmap, addr, len, prot, flags, fd, offset)
+#define open(path, flag, mode) _syscall(SYS_open, path, flag, mode)
+#define read(fd, buf, len) _syscall(SYS_read, fd, buf, len)
+#define close(fd) _syscall(SYS_close, fd)
+#define fstat(fd, buf) _syscall(SYS_fstat, fd, buf)
 
 void _dlmain(Elf64_auxv_t *);
 __END_DECLS
+
+// Checks for possible errno and exits if true
+#define expect(var) if (var & -4095) exit(-var);
 
 #if TARGET == x86_64
   #define R_TARGET_RELATIVE R_X86_64_RELATIVE
@@ -44,13 +51,12 @@ public:
 
   void expand() {
   #define region_size 0x2000
-    unsigned long region = mmap(
+    uintptr_t region = mmap(
         // any address, 2 pages, rw, only for this process
         0, region_size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1,
         0);
     // indicative of an error
-    if (region & -4095)
-      exit(-region);
+    expect(region);
 
     pool_free_object *head = (pool_free_object *)region;
     if (this->head == 0)
@@ -60,8 +66,10 @@ public:
     head = (pool_free_object *)((uintptr_t)head + object_size);
 
     do {
-      head->next = (pool_free_object *)((uintptr_t)head + object_size);
-      head = (pool_free_object *)((uintptr_t)head + object_size);
+      pool_free_object *next =
+          (pool_free_object *)((uintptr_t)head + object_size);
+      head->next = next;
+      head = next;
     } while ((uintptr_t)head < (region + region_size));
   #undef region_size
   }
@@ -113,7 +121,7 @@ public:
   }
   ElfHdrIterator operator++(int) {
     ElfHdrIterator tmp = *this;
-    this ++;
+    ptr = (T *)((uintptr_t)ptr + size);
     return tmp;
   }
 

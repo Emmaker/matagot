@@ -1,5 +1,5 @@
 .include <sys.args.mk>
-CFLAGS+= -fvisibility=internal -nostdlib -nostartfiles -ffreestanding
+CFLAGS+= -fvisibility=internal -nostdlib -ffreestanding
 CCFLAGS+= -fno-rtti -fno-exceptions
 
 LIBNAME= ld-elf
