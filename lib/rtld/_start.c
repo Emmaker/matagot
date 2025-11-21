@@ -40,10 +40,6 @@ __exported void _start() {
     phdrs += ehdr->e_phentsize;
   }
 
-  // if there is no dynamic table, something is VERY wrong
-  if (dynamic == 0)
-    exit(-1001);
-
   // the dynamic table itself
   Elf64_Dyn *dyn_table = (Elf64_Dyn *)((char *)ehdr + dynamic->p_offset);
 

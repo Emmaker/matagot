@@ -17,6 +17,10 @@ long _syscall(long, ...);
 #define fstat(fd, buf) _syscall(SYS_fstat, fd, buf)
 
 void _dlmain(Elf64_auxv_t *);
+void parse_ld_conf(void);
+unsigned long _getauvxal(unsigned long);
+
+extern Elf64_auxv_t *_auxv;
 __END_DECLS
 
 // Checks for possible errno and exits if true
